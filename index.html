@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <title>scoll</title>
+  <link rel="stylesheet" href="./index.css"/>
+</head>
+<body>
+  <section class="demo">
+    <div class="title">慕课网最新课程</div>
+    <div class="content">
+      <div class="content-box">
+        <ul class="scroll-content">
+          <li class="content-item">1、学会html5，绝对的屌丝逆袭</li>
+          <li class="content-item">2、tab页面切换</li>
+          <li class="content-item">3、圆角水晶按钮制作</li>
+          <li class="content-item">4、分布页码制作</li>
+          <li class="content-item">5、导航条菜单制作</li>
+          <li class="content-item">6、HTML+CSS基础课程</li>
+          <li class="content-item">7、实现新手引导页面</li>
+          <li class="content-item">8、制作一个响应式</li>
+          <li class="content-item">9、完成一个H5页面</li>
+        </ul>
+        <ul class="scroll-content-clone"></ul>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    var scrollArea = document.getElementsByClassName('content')[0]
+    var scrollContent = document.getElementsByClassName('scroll-content')[0]
+    var scrollContentClone = document.getElementsByClassName('scroll-content-clone')[0]
+    var lineHeight = document.getElementsByClassName('content-item')[0].offsetHeight * 2
+    var paddingTop = parseInt(window.getComputedStyle(scrollArea).paddingTop)
+    var speed = 50
+    var delayTime = 1000
+    var clock
+    scrollContentClone.innerHTML = scrollContent.innerHTML
+
+//    function myScroll () {
+//      if(scrollArea.scrollTop >= (scrollContent.offsetHeight)){
+//        scrollArea.scrollTop = 0
+//      } else {
+//        scrollArea.scrollTop++
+//      }
+//    }
+
+    function myScroll () {
+      scrollArea.scrollTop++
+      if ((scrollArea.scrollTop - paddingTop) % lineHeight === 0){
+        clearInterval(clock)
+        setTimeout(start, delayTime)
+      } else {
+        if (scrollArea.scrollTop >= scrollContent.offsetHeight) {
+          scrollArea.scrollTop = 0
+        }
+      }
+    }
+
+    function start () {
+      clock = setInterval(myScroll,speed)
+    }
+
+    start()
+
+    scrollArea.onmouseover = function () {
+      clearInterval(clock)
+    }
+    scrollArea.onmouseout = function () {
+      clock = setInterval(myScroll,speed)
+    }
+
+
+
+  </script>
+</body>
+</html>
